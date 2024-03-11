@@ -7,13 +7,13 @@ if [ ! -d "$JENKINS_DIR" ]; then
 fi
 
 # Docker Compose 실행
-sudo docker-compose up -d
+docker-compose up -d
 
 # Jenkins 컨테이너가 완전히 실행될 때까지 대기
 sudo sleep 60
 
 # Jenkins 폴더로 이동
-sudo cd ./jenkins
+cd ./jenkins
 
 # Jenkins 폴더가 완전히 생성될 때까지 대기
 sudo sleep 60
@@ -21,7 +21,7 @@ sudo sleep 60
 # update center에 필요한 CA 파일 다운로드
 UPDATE_CENTER_DIR="./update-center-rootCAs"
 if [ ! -d "$UPDATE_CENTER_DIR" ]; then
-    sudo mkdir "$UPDATE_CENTER_DIR"
+    mkdir "$UPDATE_CENTER_DIR"
 fi
 
 sudo wget https://cdn.jsdelivr.net/gh/lework/jenkins-update-center/rootCA/update-center.crt -O "$UPDATE_CENTER_DIR/update-center.crt"
@@ -30,4 +30,4 @@ sudo wget https://cdn.jsdelivr.net/gh/lework/jenkins-update-center/rootCA/update
 sudo sed -i 's#https://updates.jenkins.io/update-center.json#https://raw.githubusercontent.com/lework/jenkins-update-center/master/updates/tencent/update-center.json#' ./hudson.model.UpdateCenter.xml
 
 # Jenkins 재시작 (필수)
-sudo docker restart jenkins
+docker restart jenkins
