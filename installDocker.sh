@@ -25,6 +25,8 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 # 도커 사용자 그룹에 현재 사용자 추가
 sudo usermod -aG docker $USER
+newgrp docker
+sudo service docker restart
 
 # 설치 확인
 docker --version
